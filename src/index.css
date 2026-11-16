@@ -1,0 +1,189 @@
+@import "tailwindcss";
+
+:root {
+  --bg-pastel: #FFF0F5;
+  --bg-blush: #FADADD;
+  --bg-blush-deep: #FFB6C1;
+  --color-primary: #E75480;
+  --color-rose-gold: #E75480;
+  --color-accent: #D81B60;
+  --color-accent-dark: #AD1457;
+  --text-foreground: #4A1525;
+  --text-muted: #7B3348;
+  --surface-glass: rgba(255, 248, 251, 0.78);
+  --surface-glass-strong: rgba(255, 251, 253, 0.9);
+  --border-rose: rgba(231, 84, 128, 0.32);
+  --border-rose-strong: rgba(216, 27, 96, 0.45);
+  --shadow-elevation-sm: inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 4px 14px -4px rgba(216, 27, 96, 0.14),
+    0 2px 6px -1px rgba(74, 21, 37, 0.05);
+  --shadow-elevation-md: inset 0 1px 0 rgba(255, 255, 255, 0.92),
+    0 16px 36px -10px rgba(216, 27, 96, 0.18),
+    0 6px 16px -4px rgba(74, 21, 37, 0.06);
+  --shadow-elevation-lg: inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 24px 52px -12px rgba(216, 27, 96, 0.24),
+    0 10px 24px -6px rgba(74, 21, 37, 0.08);
+  --shadow-cta: inset 0 1px 0 rgba(255, 255, 255, 0.36),
+    0 12px 26px -6px rgba(216, 27, 96, 0.42),
+    0 4px 10px -2px rgba(173, 20, 87, 0.22);
+}
+
+/* Kết nối Design Tokens với Tailwind v4 utilities (loại bỏ mã hex cứng trong component) */
+@theme inline {
+  --color-pastel: var(--bg-pastel);
+  --color-blush: var(--bg-blush);
+  --color-blush-deep: var(--bg-blush-deep);
+  --color-rose-gold: var(--color-rose-gold);
+  --color-accent: var(--color-accent);
+  --color-accent-dark: var(--color-accent-dark);
+  --color-ink: var(--text-foreground);
+  --color-ink-muted: var(--text-muted);
+  --font-display: 'Dancing Script', cursive;
+  --font-body: 'Quicksand', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 2rem;
+    background-color: var(--bg-pastel);
+    color: var(--text-foreground);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100dvh;
+    background:
+      radial-gradient(circle at 12% 14%, rgba(250, 218, 221, 0.85) 0%, transparent 44%),
+      radial-gradient(circle at 88% 18%, rgba(231, 84, 128, 0.16) 0%, transparent 40%),
+      radial-gradient(circle at 50% 88%, rgba(250, 218, 221, 0.72) 0%, transparent 52%),
+      linear-gradient(165deg, var(--bg-pastel) 0%, #FFE8F0 52%, var(--bg-blush) 100%);
+    color: var(--text-foreground);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  #root {
+    min-height: 100dvh;
+    width: 100%;
+  }
+
+  button:focus-visible,
+  a:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-body {
+  font-family: var(--font-body);
+}
+
+/* Hệ thống bề mặt kính mờ & đổ bóng đa tầng chuẩn evondevKit */
+.ev-card,
+.glass-card {
+  background: var(--surface-glass);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid var(--border-rose);
+  box-shadow: var(--shadow-elevation-md);
+}
+
+.ev-card-elevated,
+.glass-card-elevated {
+  background: var(--surface-glass-strong);
+  backdrop-filter: blur(20px) saturate(145%);
+  -webkit-backdrop-filter: blur(20px) saturate(145%);
+  border: 1px solid var(--border-rose-strong);
+  box-shadow: var(--shadow-elevation-lg);
+}
+
+.ev-pill,
+.glass-pill {
+  background: var(--surface-glass-strong);
+  backdrop-filter: blur(14px) saturate(135%);
+  -webkit-backdrop-filter: blur(14px) saturate(135%);
+  border: 1px solid var(--border-rose);
+  box-shadow: var(--shadow-elevation-sm);
+}
+
+.ev-btn-primary,
+.btn-rose-primary {
+  background: linear-gradient(135deg, #E03E73 0%, var(--color-accent) 52%, var(--color-accent-dark) 100%);
+  color: #FFFFFF;
+  box-shadow: var(--shadow-cta);
+}
+
+.ev-btn-primary:hover,
+.btn-rose-primary:hover {
+  filter: brightness(1.04);
+}
+
+.ev-hairline {
+  background: linear-gradient(90deg, transparent 0%, var(--color-rose-gold) 50%, transparent 100%);
+}
+
+/* Bảo toàn hiệu ứng chữ & CSS Mask cho PortraitIntro.tsx */
+.rose-gold-glow {
+  text-shadow: 0 2px 16px rgba(231, 84, 128, 0.28), 0 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+@keyframes portraitBrushMask {
+  0% {
+    -webkit-mask-position: 0% 100%;
+    mask-position: 0% 100%;
+  }
+  100% {
+    -webkit-mask-position: 0% 0%;
+    mask-position: 0% 0%;
+  }
+}
+
+.portrait-brush-mask {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    #000 0%,
+    #000 42%,
+    rgba(0, 0, 0, 0.85) 47%,
+    rgba(0, 0, 0, 0.28) 52%,
+    transparent 57%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    #000 0%,
+    #000 42%,
+    rgba(0, 0, 0, 0.85) 47%,
+    rgba(0, 0, 0, 0.28) 52%,
+    transparent 57%,
+    transparent 100%
+  );
+  -webkit-mask-size: 100% 240%;
+  mask-size: 100% 240%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  animation: portraitBrushMask 4s cubic-bezier(0.35, 0.08, 0.25, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
